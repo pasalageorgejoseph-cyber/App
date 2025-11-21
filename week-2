@@ -1,0 +1,80 @@
+# Week-2: Develop mobile apps to insert notifications, on insertion show a toast message
+
+MainActivity.java
+
+package com.example.week2toastapp;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.view.LayoutInflater;
+public class MainActivity extends AppCompatActivity {
+    Button btnToast;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnToast = findViewById(R.id.btnToast);
+        btnToast.setOnClickListener(v -> showCustomToast());
+    }
+    private void showCustomToast() {
+        View view = LayoutInflater.from(this).inflate(R.layout.custom_toast_layout, null);
+        TextView txtMsg = view.findViewById(R.id.txtMsg);
+        txtMsg.setText("Message Sent Successfully!");
+        Toast toast = new Toast(this);
+        toast.setView(view);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.END, 0, 0);
+        toast.show();
+    }
+}
+
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+    <Button
+        android:id="@+id/btnToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Custom Toast"
+        android:textSize="18sp"
+        android:padding="10dp"/>
+</LinearLayout>
+
+custom_toast_layout.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewContainer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical"
+    android:background="#99C34A">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_cloud_done_24"
+        android:contentDescription="Success icon" />
+    <TextView
+        android:id="@+id/txtMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Toast Message"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>
