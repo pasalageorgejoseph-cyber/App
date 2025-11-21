@@ -1,0 +1,27 @@
+# Week-5:
+
+import 'dart:io';
+import 'dart:math' as math;
+
+void main() {
+  print("Pizza size: Small-140Rs, Medium-190Rs, Large-240Rs");
+  stdout.write("Please enter pizza size: ");
+  String? pizzaSize = stdin.readLineSync();
+  stdout.write("How many pizzas do you want to have: ");
+  int pizzaQty = int.parse(stdin.readLineSync()!);
+  int result = 0;
+  if (pizzaSize != null) {
+    pizzaSize = pizzaSize.toLowerCase();
+    if (pizzaSize == "small") {
+      result = pizzaQty * 140;
+    } else if (pizzaSize == "medium") {
+      result = pizzaQty * 190;
+    } else if (pizzaSize == "large") {
+      result = pizzaQty * 240;
+    } else {
+      print("Invalid pizza size.");
+      return;
+    }
+  }
+  print("Your total Payment : $result Rs");
+}
