@@ -1,0 +1,58 @@
+# Week-11: Develop a web app with login and welcome pages, validate the user details on submission and navigate to the welcome page
+
+app.py
+
+from flask import Flask, render_template, request
+app = Flask(__name__)
+users = {'cmrit': '123', 'mallreddy': 'abc', 'hyd': 'abc'}
+@app.route('/')
+def login_page():
+    return render_template('login.html')
+@app.route('/login', methods=['POST'])
+def login():
+    name = request.form.get('username')
+    password = request.form.get('password')
+    if name not in users:
+        return render_template('login.html', info='Invalid Username')
+    elif users[name] != password:
+        return render_template('login.html', info='Invalid Password')
+    else:
+        return render_template('home.html', name=name)
+
+if __name__ == '__main__':
+    app.run()
+
+
+login.html
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+</head>
+<body style="background-color: orange;">
+  <form action="/login" method="post">
+    <h2>Login</h2>
+    Username: <br>
+    <input type="text" name="username" required><br><br>
+    Password: <br>
+    <input type="password" name="password" required><br><br>
+    <input type="submit" value="Login">
+  </form>
+
+  <h3 style="color:red;">{{info}}</h3>
+</body>
+</html>
+
+
+home.html
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+</head>
+<body style="background-color: teal;">
+  <h1 style="text-align: center;">Welcome {{name}}</h1>
+</body>
+</html>
